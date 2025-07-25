@@ -1,4 +1,5 @@
-﻿using BpDmTerminal.ServiceReference1;
+﻿using BpDmTerminal.Models;
+using BpDmTerminal.ServiceReference1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,7 +64,7 @@ namespace BpDmTerminal.Controllers
                 resp.InvitersPhoneNumber = "74-56-98";
                 resp.CabinetNumber = "103";
                 resp.VisitorFullname = "Ләйлім";
-
+                resp.NeedPhoto = false;
                 return View(resp);
 
             }
@@ -83,5 +84,26 @@ namespace BpDmTerminal.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult ConfirmYes(ResponseCard model)
+        {
+            if (model.NeedPhoto)
+                return RedirectToAction("TakePhoto", model);
+            else
+                return RedirectToAction("GiveCard", model);
+        }
+
+        public ActionResult TakePhoto(ResponseCard model)
+        {
+            return View(model);
+        }
+
+        public ActionResult GiveCard(ResponseCard model)
+        {
+            var asasd = CardRequester.IssueCard();
+            return View(model);
+        }
+
     }
 }
