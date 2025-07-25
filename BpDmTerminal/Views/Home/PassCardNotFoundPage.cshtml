@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Пропуск не найден";
+}
+
+<style>
+    .not-found-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        text-align: center;
+    }
+
+    .not-found-button {
+        background-color: #cc3333;
+        color: white;
+        font-size: 28px;
+        padding: 20px 60px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+    }
+</style>
+
+<div class="not-found-wrapper">
+    <button class="not-found-button" id="countdownButton" onclick="goBackNow()">
+        Пропуск не найдено (10)
+    </button>
+</div>
+
+@section scripts {
+    <script>
+    let secondsLeft = 10;
+    const button = document.getElementById("countdownButton");
+
+    const interval = setInterval(() => {
+        secondsLeft--;
+        button.innerText = `Пропуск не найдено (${secondsLeft})`;
+        if (secondsLeft === 0) {
+            clearInterval(interval);
+            goBackNow();
+        }
+    }, 1000);
+
+    function goBackNow() {
+        window.location.href = '@Url.Action("Index", "Home")';
+    }
+    </script>
+}

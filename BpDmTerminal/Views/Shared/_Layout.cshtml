@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            background: linear-gradient(to bottom, #003366, #004080);
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 22px;
+            overflow: hidden;
+        }
+
+        .container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .clock {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .back-button {
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: #0059b3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <div class="clock" id="clock"></div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const date = now.toLocaleDateString('ru-RU');
+            const time = now.toLocaleTimeString('ru-RU', { hour12: false });
+            document.getElementById('clock').innerText = `${date} ${time}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

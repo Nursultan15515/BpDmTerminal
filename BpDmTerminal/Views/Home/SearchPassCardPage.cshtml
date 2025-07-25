@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Поиск пропуска";
+}
+
+<link href="~/Content/keyboard.css" rel="stylesheet" />
+
+<div style="margin-bottom: 15px; font-size: 26px;">
+    Введите ИИН или номер паспорта
+</div>
+
+<form method="post" action="/Home/Search">
+    <div id="inputWrapper">
+        <input type="text" id="inputField" name="searchValue" required />
+        <button id="backspaceButton" onclick="handleBackspace()">⬅</button>
+    </div>
+
+    <div class="keyboard-wrapper" id="keyboardContainer"></div>
+
+    <div class="action-buttons">
+        <button type="submit">🔍 Поиск</button>
+    </div>
+</form>
+
+<button class="back-button" onclick="window.location.href='@Url.Action("Index", "Home")'">⬅ Назад</button>
+
+@section scripts {
+    <script>
+        let isLetters = false;
+        const inputField = document.getElementById("inputField");
+        const keyboardContainer = document.getElementById("keyboardContainer");
+
+        const numberLayout = [
+            ["1", "2", "3"],
+            ["4", "5", "6"],
+            ["7", "8", "9"],
+            ["ABC", "0"]
+        ];
+
+        const letterLayout = [
+            ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+            ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+            ["Z", "X", "C", "V", "B", "N", "M"],
+            ["123", "space"]
+        ];
+
+        function handleBackspace() {
+            inputField.value = inputField.value.slice(0, -1);
+        }
+
+        function renderKeyboard() {
+            keyboardContainer.innerHTML = "";
+            const layout = isLetters ? letterLayout : numberLayout;
+            layout.forEach(row => {
+                const rowDiv = document.createElement("div");
+                rowDiv.className = "keyboard-row";
+                row.forEach(key => {
+                    const button = document.createElement("button");
+                    button.className = "keyboard-button";
+                    button.type = "button";
+
+                    if (key === "space") {
+                        button.classList.add("space");
+                        button.innerHTML = "␣";
+                        button.onclick = () => inputField.value += " ";
+                    } else if (key === "0") {
+                        button.classList.add("wide");
+                        button.innerHTML = "0";
+                        button.onclick = () => inputField.value += "0";
+                    } else if (key === "ABC" || key === "123") {
+                        button.classList.add("small-text");
+                        button.innerHTML = key;
+                        button.onclick = () => {
+                            isLetters = !isLetters;
+                            renderKeyboard();
+                        };
+                    } else {
+                        button.innerHTML = key;
+                        button.onclick = () => inputField.value += key;
+                    }
+
+                    rowDiv.appendChild(button);
+                });
+                keyboardContainer.appendChild(rowDiv);
+            });
+        }
+
+        renderKeyboard();
+    </script>
+}

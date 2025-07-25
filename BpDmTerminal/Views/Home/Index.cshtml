@@ -1,0 +1,91 @@
+﻿<style>
+    .container {
+        position: relative;
+        height: 100%;
+        padding: 40px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 34px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .text-block {
+        background-color: rgba(0, 0, 0, 0.3);
+        padding: 30px;
+        border-radius: 10px;
+        white-space: pre-wrap;
+        line-height: 1.6;
+        overflow: auto;
+    }
+
+    .bottom-panel {
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+
+    .start-button {
+        background-color: #00cc66;
+        color: white;
+        font-size: 24px;
+        padding: 20px 50px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .lang-buttons button {
+        background-color: #0059b3;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        margin: 0 12px;
+        font-size: 18px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+<div class="container">
+    <div class="main-content">
+        <h1>@BpDmTerminal.Resources.Messages.Terminal<br />@BpDmTerminal.Resources.Messages.DM</h1>
+
+        <div class="text-block">
+            @BpDmTerminal.Resources.Messages.Part1
+
+            @BpDmTerminal.Resources.Messages.Part2
+
+            @BpDmTerminal.Resources.Messages.Part3
+
+            @BpDmTerminal.Resources.Messages.Part4
+            @BpDmTerminal.Resources.Messages.Part5
+        </div>
+    </div>
+
+    <div class="bottom-panel">
+        <form action="@Url.Action("SearchPassCardPage")">
+            <button type="submit" class="start-button">
+                @BpDmTerminal.Resources.Messages.Start
+            </button>
+        </form>
+
+        <div class="lang-buttons" style="margin-top: 25px;">
+            <button onclick="location.href='@Url.Action("SetLanguage", new { lang = "kk" })'">Kaz</button>
+            <button onclick="location.href='@Url.Action("SetLanguage", new { lang = "ru" })'">Рус</button>
+            <button onclick="location.href='@Url.Action("SetLanguage", new { lang = "en" })'">Eng</button>
+        </div>
+    </div>
+</div>

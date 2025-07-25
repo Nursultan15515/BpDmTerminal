@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://192.168.7.23/Services/TerminalService" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://192.168.7.23/Services/TerminalService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://192.168.7.23/Services/TerminalService">
+      <s:element name="GetReport">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReportResult" type="tns:MyReports" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MyReports">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="allreports" type="tns:ArrayOfMyReport" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMyReport">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MyReport" nillable="true" type="tns:MyReport" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MyReport">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="korpus" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="visitor" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="building_entering_datetime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="invitor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="department" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="contacts" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RFIdCardNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetVisitor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:RequestCard" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RequestCard">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Request">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="RequestData" type="tns:RequestCardData" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Request">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RequestInfo" type="tns:RequestInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RequestInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MessageID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sender" type="tns:Sender" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Sender">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RequestCardData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetVisitorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVisitorResult" type="tns:ResponseCard" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResponseCard">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Response">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CardID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="InvitersFullname" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="InvitersPhoneNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ResponsiblePersons" type="tns:ArrayOfPerson" />
+              <s:element minOccurs="0" maxOccurs="1" name="CabinetFloor" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CabinetNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="NeedPhoto" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="VisitorFullname" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Base64Photo" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Response">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MessageID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPerson">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Person" nillable="true" type="tns:Person" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Person">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Fullname" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SetVisitorsPhoto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:RequestPhoto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RequestPhoto">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Request">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="RequestData" type="tns:RequestPhotoData" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RequestPhotoData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CardID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Base64Photo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SetVisitorsPhotoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetVisitorsPhotoResult" type="tns:Response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetVisitorsRFID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:RequestRFID" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RequestRFID">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Request">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="RequestData" type="tns:RequestRFIDData" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RequestRFIDData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CardID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RFID_Number" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SetVisitorsRFIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetVisitorsRFIDResult" type="tns:Response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CardsEnded">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:Request" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CardsEndedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CardsEndedResult" type="tns:Response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetReportSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReport" />
+  </wsdl:message>
+  <wsdl:message name="GetReportSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVisitorSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVisitor" />
+  </wsdl:message>
+  <wsdl:message name="GetVisitorSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVisitorResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetVisitorsPhotoSoapIn">
+    <wsdl:part name="parameters" element="tns:SetVisitorsPhoto" />
+  </wsdl:message>
+  <wsdl:message name="SetVisitorsPhotoSoapOut">
+    <wsdl:part name="parameters" element="tns:SetVisitorsPhotoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetVisitorsRFIDSoapIn">
+    <wsdl:part name="parameters" element="tns:SetVisitorsRFID" />
+  </wsdl:message>
+  <wsdl:message name="SetVisitorsRFIDSoapOut">
+    <wsdl:part name="parameters" element="tns:SetVisitorsRFIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="CardsEndedSoapIn">
+    <wsdl:part name="parameters" element="tns:CardsEnded" />
+  </wsdl:message>
+  <wsdl:message name="CardsEndedSoapOut">
+    <wsdl:part name="parameters" element="tns:CardsEndedResponse" />
+  </wsdl:message>
+  <wsdl:portType name="TerminalService1Soap">
+    <wsdl:operation name="GetReport">
+      <wsdl:input message="tns:GetReportSoapIn" />
+      <wsdl:output message="tns:GetReportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVisitor">
+      <wsdl:input message="tns:GetVisitorSoapIn" />
+      <wsdl:output message="tns:GetVisitorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetVisitorsPhoto">
+      <wsdl:input message="tns:SetVisitorsPhotoSoapIn" />
+      <wsdl:output message="tns:SetVisitorsPhotoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetVisitorsRFID">
+      <wsdl:input message="tns:SetVisitorsRFIDSoapIn" />
+      <wsdl:output message="tns:SetVisitorsRFIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CardsEnded">
+      <wsdl:input message="tns:CardsEndedSoapIn" />
+      <wsdl:output message="tns:CardsEndedSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TerminalService1Soap" type="tns:TerminalService1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetReport">
+      <soap:operation soapAction="http://192.168.7.23/Services/TerminalService/GetReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVisitor">
+      <soap:operation soapAction="http://192.168.7.23/Services/TerminalService/GetVisitor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetVisitorsPhoto">
+      <soap:operation soapAction="http://192.168.7.23/Services/TerminalService/SetVisitorsPhoto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetVisitorsRFID">
+      <soap:operation soapAction="http://192.168.7.23/Services/TerminalService/SetVisitorsRFID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CardsEnded">
+      <soap:operation soapAction="http://192.168.7.23/Services/TerminalService/CardsEnded" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TerminalService1Soap12" type="tns:TerminalService1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetReport">
+      <soap12:operation soapAction="http://192.168.7.23/Services/TerminalService/GetReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVisitor">
+      <soap12:operation soapAction="http://192.168.7.23/Services/TerminalService/GetVisitor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetVisitorsPhoto">
+      <soap12:operation soapAction="http://192.168.7.23/Services/TerminalService/SetVisitorsPhoto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetVisitorsRFID">
+      <soap12:operation soapAction="http://192.168.7.23/Services/TerminalService/SetVisitorsRFID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CardsEnded">
+      <soap12:operation soapAction="http://192.168.7.23/Services/TerminalService/CardsEnded" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TerminalService1">
+    <wsdl:port name="TerminalService1Soap" binding="tns:TerminalService1Soap">
+      <soap:address location="http://192.168.7.23/Services/TerminalService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TerminalService1Soap12" binding="tns:TerminalService1Soap12">
+      <soap12:address location="http://192.168.7.23/Services/TerminalService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

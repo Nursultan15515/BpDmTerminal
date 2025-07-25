@@ -1,0 +1,103 @@
+﻿@model BpDmTerminal.ServiceReference1.ResponseCard
+@{
+    ViewBag.Title = "Подтверждение данных";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Или null
+}
+
+<style>
+    body {
+        color: white;
+        background: linear-gradient(to bottom, #003366, #004080);
+        font-family: sans-serif;
+        overflow: hidden;
+    }
+
+    .visitor-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    .header-text {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+        .header-text h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header-text p {
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+    .info-box {
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 30px 60px;
+        border-radius: 10px;
+        font-size: 22px;
+        min-width: 500px;
+    }
+
+        .info-box div {
+            margin: 12px 0;
+        }
+
+    .action-buttons {
+        margin-top: 30px;
+    }
+
+        .action-buttons button {
+            padding: 16px 40px;
+            font-size: 24px;
+            margin: 0 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+    .yes-button {
+        background-color: #00cc66;
+        color: white;
+    }
+
+    .no-button {
+        background-color: #cc0000;
+        color: white;
+    }
+</style>
+
+<div class="visitor-container">
+    <div class="header-text">
+        <h1>РҰҚСАТТАМА ЖАЙЛЫ АҚПАРАТТЫ РАСТАУ</h1>
+        <p>
+            Рұқсаттама жайлы мәліметтің дұрыстығын тексеріңіз.<br />
+            Бәрі дұрыс болған жағдайда «Ия», егер қате болса «Жоқ» батырмасын басыңыз.
+        </p>
+    </div>
+
+    <div class="info-box">
+        <div><strong>Аты-жөні тегі:</strong> @Model.VisitorFullname</div>
+        <div><strong>Қабат:</strong> @Model.CabinetFloor</div>
+        <div><strong>Кабинет:</strong> @Model.CabinetNumber</div>
+        <div><strong>Шақырушы:</strong> @Model.InvitersFullname</div>
+        <div><strong>Телефон:</strong> @Model.InvitersPhoneNumber</div>
+    </div>
+
+    <div class="action-buttons">
+        <form method="post" action="@Url.Action("ConfirmYes", "Home")" style="display:inline;">
+            <input type="hidden" name="cardId" value="@Model.CardID" />
+            <button type="submit" class="yes-button">Ия</button>
+        </form>
+
+        <form method="get" action="@Url.Action("Index", "Home")" style="display:inline;">
+            <button type="submit" class="no-button">Жоқ</button>
+        </form>
+    </div>
+</div>
