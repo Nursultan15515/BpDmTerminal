@@ -53,18 +53,18 @@ namespace BpDmTerminal.Controllers
 
                 ServiceReference1.TerminalService1SoapClient client = new ServiceReference1.TerminalService1SoapClient();
 
-                //var resp = client.GetVisitor(requestCard);
+                var resp = client.GetVisitor(requestCard);
 
-                //if (resp.Status == false)
-                //    return RedirectToAction("PassCardNotFoundPage");
+                if (resp.Status == false)
+                    return RedirectToAction("PassCardNotFoundPage");
 
-                var resp = new ResponseCard();
-                resp.CabinetFloor = "1";
-                resp.InvitersFullname = "Ержан Нурсултан";
-                resp.InvitersPhoneNumber = "74-56-98";
-                resp.CabinetNumber = "103";
-                resp.VisitorFullname = "Ләйлім";
-                resp.NeedPhoto = false;
+                //var resp = new ResponseCard();
+                //resp.CabinetFloor = "1";
+                //resp.InvitersFullname = "Ержан Нурсултан";
+                //resp.InvitersPhoneNumber = "74-56-98";
+                //resp.CabinetNumber = "103";
+                //resp.VisitorFullname = "Ләйлім";
+                //resp.NeedPhoto = false;
                 return View(resp);
 
             }
