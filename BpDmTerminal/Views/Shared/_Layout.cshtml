@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/loader.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
-
     <style>
         html, body {
             height: 100%;
@@ -51,6 +51,12 @@
     @RenderSection("styles", required: false)
 </head>
 <body>
+    
+    <div id="loaderId" style="position:fixed; display:none; width:100%; height:100%; justify-content:center; align-items:center; background:rgba(0,0,0,.7); z-index:100;">
+        <div class="loader">Loading...</div>
+        <div style="position:absolute !important; width:100%; height:100%;z-index:1;"></div>
+    </div>
+
     <div class="container">
         @RenderBody()
     </div>

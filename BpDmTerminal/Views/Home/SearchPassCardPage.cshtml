@@ -8,10 +8,10 @@
     Введите ИИН или номер паспорта
 </div>
 
-<form method="post" action="/Home/Search">
+<form method="post" action="/Home/Search" id="searchPassCard">
     <div id="inputWrapper">
         <input type="text" id="inputField" name="searchValue" required />
-        <button id="backspaceButton" onclick="handleBackspace()">⬅</button>
+        <button type="button" id="backspaceButton" onclick="handleBackspace()">⬅</button>
     </div>
 
     <div class="keyboard-wrapper" id="keyboardContainer"></div>
@@ -87,3 +87,14 @@
         renderKeyboard();
     </script>
 }
+
+<script>
+
+
+    const searchPassCard = document.querySelector("#searchPassCard");
+    if (searchPassCard) {
+        searchPassCard.addEventListener("submit", function () {
+            document.getElementById("loaderId").style.display = "flex";
+        });
+    }
+</script>

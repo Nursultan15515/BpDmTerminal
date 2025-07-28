@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="Models\CardRequester.cs" />
     <Compile Include="Models\CardResponse.cs" />
+    <Compile Include="Models\ServiceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Messages.Designer.cs" />
     <Compile Include="Resources\Messages.ru.Designer.cs" />
@@ -200,6 +201,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\keyboard.css" />
+    <Content Include="Content\loader.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

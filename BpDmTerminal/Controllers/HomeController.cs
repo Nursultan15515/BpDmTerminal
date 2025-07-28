@@ -34,37 +34,18 @@ namespace BpDmTerminal.Controllers
         {
             try
             {
-                RequestCard requestCard = new RequestCard
-                {
-                    RequestInfo = new RequestInfo
-                    {
-                        MessageID = Guid.NewGuid().ToString(),
-                        Sender = new Sender
-                        {
-                            User = "Terminal4k1t",
-                            Password = "Ter2minaL",
-                        },
-                    },
-                    RequestData = new RequestCardData
-                    {
-                        DocumentNumber = searchValue
-                    },
-                };
+                //var resp = ServiceHelper.GetVisitor(searchValue, "Terminal4k1t");
 
-                ServiceReference1.TerminalService1SoapClient client = new ServiceReference1.TerminalService1SoapClient();
+                //if (resp.Status == false)
+                //    return RedirectToAction("PassCardNotFoundPage");
 
-                var resp = client.GetVisitor(requestCard);
-
-                if (resp.Status == false)
-                    return RedirectToAction("PassCardNotFoundPage");
-
-                //var resp = new ResponseCard();
-                //resp.CabinetFloor = "1";
-                //resp.InvitersFullname = "Ержан Нурсултан";
-                //resp.InvitersPhoneNumber = "74-56-98";
-                //resp.CabinetNumber = "103";
-                //resp.VisitorFullname = "Ләйлім";
-                //resp.NeedPhoto = false;
+                var resp = new ResponseCard();
+                resp.CabinetFloor = "1";
+                resp.InvitersFullname = "Ержан Нурсултан";
+                resp.InvitersPhoneNumber = "74-56-98";
+                resp.CabinetNumber = "103";
+                resp.VisitorFullname = "Ләйлім";
+                resp.NeedPhoto = false;
                 return View(resp);
 
             }
@@ -111,27 +92,10 @@ namespace BpDmTerminal.Controllers
                 if (string.IsNullOrEmpty(cardResponse.uid))
                     return RedirectToAction("ErrorPage");
 
-                RequestRFID requestRFID = new RequestRFID
-                {
-                    RequestInfo = new RequestInfo
-                    {
-                        MessageID = Guid.NewGuid().ToString(),
-                        Sender = new Sender
-                        {
-                            User = "Terminal4k1t",
-                            Password = "Ter2minaL",
-                        },
-                    },
-                    RequestData = new RequestRFIDData
-                    {
-                        CardID = model.CardID,
-                        RFID_Number = cardResponse.uid
-                    },
-                };
+                //if (cardResponse.isCardEnd)
+                //    ServiceHelper.CardsEnded("Terminal4k1t");
 
-                ServiceReference1.TerminalService1SoapClient client = new ServiceReference1.TerminalService1SoapClient();
-                var response = client.SetVisitorsRFID(requestRFID);
-
+                //ServiceHelper.SetVisitorsRFID(model.CardID, cardResponse.uid, "Terminal4k1t");
 
                 return RedirectToAction("OfferTakeСard");
             }

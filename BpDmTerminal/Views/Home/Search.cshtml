@@ -101,3 +101,12 @@
         </form>
     </div>
 </div>
+
+<script>
+    const yesForm = document.querySelector("form[action*='ConfirmYes']");
+    if (yesForm) {
+        yesForm.addEventListener("submit", function () {
+            document.getElementById("loaderId").style.display = "flex";
+        });
+    }
+</script>
