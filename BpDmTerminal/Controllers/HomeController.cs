@@ -101,8 +101,49 @@ namespace BpDmTerminal.Controllers
 
         public ActionResult GiveCard(ResponseCard model)
         {
-            var asasd = CardRequester.IssueCard();
-            return View(model);
+            try
+            {
+                var cardResponse = CardRequester.IssueCard();
+
+                if (!cardResponse.success)
+                    return RedirectToAction("ErrorPage");
+
+                if (string.IsNullOrEmpty(cardResponse.uid))
+                    return RedirectToAction("ErrorPage");
+
+                RequestRFID requestRFID = new RequestRFID
+                {
+                    RequestInfo = new RequestInfo
+                    {
+                        MessageID = Guid.NewGuid().ToString(),
+                        Sender = new Sender
+                        {
+                            User = "Terminal4k1t",
+                            Password = "Ter2minaL",
+                        },
+                    },
+                    RequestData = new RequestRFIDData
+                    {
+                        CardID = model.CardID,
+                        RFID_Number = cardResponse.uid
+                    },
+                };
+
+                ServiceReference1.TerminalService1SoapClient client = new ServiceReference1.TerminalService1SoapClient();
+                var response = client.SetVisitorsRFID(requestRFID);
+
+
+                return RedirectToAction("OfferTakeСard");
+            }
+            catch (Exception ex) 
+            {
+                return RedirectToAction("ErrorPage");
+            }
+        }
+
+        public ActionResult OfferTakeСard()
+        {
+            return View();
         }
 
     }

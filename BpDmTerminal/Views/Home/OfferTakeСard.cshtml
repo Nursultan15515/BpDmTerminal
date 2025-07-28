@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Выдача карт";
+}
+
+<style>
+    .not-found-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        text-align: center;
+    }
+
+    .not-found-button {
+        font-size: 28px;
+        padding: 20px 60px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .green-button {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .red-button {
+        background-color: #cc3333;
+        color: white;
+    }
+</style>
+
+<div class="not-found-wrapper">
+    <button class="not-found-button green-button" id="countdownButton" onclick="goBackNow()">
+        Пожалуйста, заберите карту в течение 15 секунд.
+    </button>
+</div>
+
+@section scripts {
+    <script>
+        let secondsLeft = 15;
+        const button = document.getElementById("countdownButton");
+
+        const interval = setInterval(() => {
+            secondsLeft--;
+
+            button.innerText = `Пожалуйста, заберите карту в течение ${secondsLeft} секунд.`;
+
+            if (secondsLeft <= 5) {
+                button.classList.remove("green-button");
+                button.classList.add("red-button");
+            }
+
+            if (secondsLeft === 0) {
+                clearInterval(interval);
+                goBackNow();
+            }
+        }, 1000);
+
+        function goBackNow() {
+            window.location.href = '@Url.Action("Index", "Home")';
+        }
+    </script>
+}
