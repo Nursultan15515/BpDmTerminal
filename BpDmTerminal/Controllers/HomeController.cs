@@ -34,18 +34,18 @@ namespace BpDmTerminal.Controllers
         {
             try
             {
-                //var resp = ServiceHelper.GetVisitor(searchValue, "Terminal4k1t");
+                var resp = ServiceHelper.GetVisitor(searchValue, "Terminal4k1t");
 
-                //if (resp.Status == false)
-                //    return RedirectToAction("PassCardNotFoundPage");
+                if (resp.Status == false)
+                    return RedirectToAction("PassCardNotFoundPage");
 
-                var resp = new ResponseCard();
-                resp.CabinetFloor = "1";
-                resp.InvitersFullname = "Ержан Нурсултан";
-                resp.InvitersPhoneNumber = "74-56-98";
-                resp.CabinetNumber = "103";
-                resp.VisitorFullname = "Ләйлім";
-                resp.NeedPhoto = false;
+                //var resp = new ResponseCard();
+                //resp.CabinetFloor = "1";
+                //resp.InvitersFullname = "Ержан Нурсултан";
+                //resp.InvitersPhoneNumber = "74-56-98";
+                //resp.CabinetNumber = "103";
+                //resp.VisitorFullname = "Ләйлім";
+                //resp.NeedPhoto = true;
                 return View(resp);
 
             }

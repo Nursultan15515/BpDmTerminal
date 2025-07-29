@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Сделать фото";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .photo-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 60px;
+        height: 100%;
+        padding-top: 50px;
+        color: white;
+    }
+
+    .frame-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .frame-block h3 {
+            margin-bottom: 15px;
+        }
+
+    video, canvas {
+        border: 5px solid #00cc66;
+        border-radius: 10px;
+        width: 320px; /* 4:3 соотношение */
+        height: 240px; /* 4:3 соотношение */
+        background-color: black;
+    }
+
+    .capture-button, .done-button {
+        margin-top: 20px;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .capture-button {
+        background-color: #00cc66;
+        color: white;
+    }
+
+    .done-button {
+        background-color: #0059b3;
+        color: white;
+    }
+</style>
+
+<div class="photo-container">
+    <div class="frame-block">
+        <h3>Камера</h3>
+        <video id="video" autoplay></video>
+        <button class="capture-button" onclick="capturePhoto()">Снять фото</button>
+    </div>
+
+    <div class="frame-block">
+        <h3>Снимок</h3>
+        <canvas id="canvas"></canvas>
+        <button class="done-button" onclick="submitPhoto()">Готово</button>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+
+    // Запрос к камере
+    navigator.mediaDevices.getUserMedia({ video: { aspectRatio: 4/3 } })
+        .then(stream => video.srcObject = stream)
+        .catch(err => {
+            console.error("Ошибка камеры:", err);
+            alert("Камера недоступна");
+        });
+
+    function capturePhoto() {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    }
+
+    function submitPhoto() {
+        const imageData = canvas.toDataURL("image/png");
+        console.log("Base64 Фото:", imageData);
+
+        // TODO: отправка на сервер
+        // fetch('@Url.Action("SavePhoto", "Home")', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ photoBase64: imageData })
+        // });
+    }
+    </script>
+}
