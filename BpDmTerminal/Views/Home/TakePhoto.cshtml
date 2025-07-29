@@ -10,7 +10,7 @@
         justify-content: center;
         align-items: flex-start;
         gap: 80px;
-        padding-top: 40px;
+        /*padding-top: 5px;*/
         color: white;
     }
 
@@ -59,6 +59,12 @@
     <input type="hidden" name="passCardVisitorId" value="@ViewBag.PassCardVisitorId" />
     <input type="hidden" name="base64photo" id="base64photo" />
 
+    <p style="font-size: 18px; line-height: 1.4; margin-top: 20px;">
+        Посмотрите на камеру, находящуюся на терминале. Нажмите кнопку «Сделать фото»<br />
+        Фотографирование можно повторить несколько раз до достижения приемлемого результата.<br />
+        Затем нажмите кнопку «Сохранить и получить карту».
+    </p>
+
     <div class="photo-container">
         <!-- Камера -->
         <div class="frame-block">
@@ -71,7 +77,9 @@
         <div class="frame-block">
             <h3>Снимок</h3>
             <canvas id="canvas" width="480" height="640"></canvas>
-            <button type="submit" class="done-button" onclick="preparePhoto()">Готово</button>
+            <button type="submit" id="saveButton" class="done-button" style="display:none;" onclick="preparePhoto()">
+                Сохранить и получить карту
+            </button>
         </div>
     </div>
 </form>
@@ -92,6 +100,8 @@
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            document.getElementById('saveButton').style.display = 'inline-block';
         }
 
         function preparePhoto() {
