@@ -1,4 +1,5 @@
-﻿@{
+﻿@model string
+@{
     ViewBag.Title = "Сделать фото";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -8,9 +9,8 @@
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        gap: 60px;
-        height: 100%;
-        padding-top: 50px;
+        gap: 80px;
+        padding-top: 40px;
         color: white;
     }
 
@@ -22,22 +22,24 @@
 
         .frame-block h3 {
             margin-bottom: 15px;
+            font-size: 22px;
         }
 
     video, canvas {
         border: 5px solid #00cc66;
         border-radius: 10px;
-        width: 320px; /* 4:3 соотношение */
-        height: 240px; /* 4:3 соотношение */
+        width: 480px;
+        height: 640px;
         background-color: black;
+        object-fit: cover;
     }
 
     .capture-button, .done-button {
         margin-top: 20px;
-        padding: 12px 30px;
+        padding: 14px 40px;
         border: none;
         border-radius: 8px;
-        font-size: 20px;
+        font-size: 22px;
         cursor: pointer;
     }
 
@@ -52,48 +54,50 @@
     }
 </style>
 
-<div class="photo-container">
-    <div class="frame-block">
-        <h3>Камера</h3>
-        <video id="video" autoplay></video>
-        <button class="capture-button" onclick="capturePhoto()">Снять фото</button>
-    </div>
+<!-- Оборачиваем всё в форму -->
+<form method="post" action="@Url.Action("SavePhoto", "Home")">
+    <input type="hidden" name="passCardVisitorId" value="@ViewBag.PassCardVisitorId" />
+    <input type="hidden" name="base64photo" id="base64photo" />
 
-    <div class="frame-block">
-        <h3>Снимок</h3>
-        <canvas id="canvas"></canvas>
-        <button class="done-button" onclick="submitPhoto()">Готово</button>
+    <div class="photo-container">
+        <!-- Камера -->
+        <div class="frame-block">
+            <h3>Камера</h3>
+            <video id="video" autoplay playsinline></video>
+            <button type="button" class="capture-button" onclick="capturePhoto()">Сделать фото</button>
+        </div>
+
+        <!-- Снимок -->
+        <div class="frame-block">
+            <h3>Снимок</h3>
+            <canvas id="canvas" width="480" height="640"></canvas>
+            <button type="submit" class="done-button" onclick="preparePhoto()">Готово</button>
+        </div>
     </div>
-</div>
+</form>
 
 @section scripts {
     <script>
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
 
-    // Запрос к камере
-    navigator.mediaDevices.getUserMedia({ video: { aspectRatio: 4/3 } })
-        .then(stream => video.srcObject = stream)
-        .catch(err => {
-            console.error("Ошибка камеры:", err);
-            alert("Камера недоступна");
-        });
+        navigator.mediaDevices.getUserMedia({ video: { width: 480, height: 640 } })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => alert("Камера недоступна: " + err));
 
-    function capturePhoto() {
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    }
+        function capturePhoto() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        }
 
-    function submitPhoto() {
-        const imageData = canvas.toDataURL("image/png");
-        console.log("Base64 Фото:", imageData);
-
-        // TODO: отправка на сервер
-        // fetch('@Url.Action("SavePhoto", "Home")', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ photoBase64: imageData })
-        // });
-    }
+        function preparePhoto() {
+            // Преобразуем фото в base64 и кладём в hidden input
+            const imageData = canvas.toDataURL("image/png");
+            document.getElementById("base64photo").value = imageData;
+        }
     </script>
 }

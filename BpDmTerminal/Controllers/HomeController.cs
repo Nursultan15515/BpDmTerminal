@@ -3,6 +3,7 @@ using BpDmTerminal.ServiceReference1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
@@ -46,6 +47,7 @@ namespace BpDmTerminal.Controllers
                 //resp.CabinetNumber = "103";
                 //resp.VisitorFullname = "Ләйлім";
                 //resp.NeedPhoto = true;
+                //resp.CardID = "01010109";
                 return View(resp);
 
             }
@@ -70,17 +72,26 @@ namespace BpDmTerminal.Controllers
         public ActionResult ConfirmYes(ResponseCard model)
         {
             if (model.NeedPhoto)
-                return RedirectToAction("TakePhoto", model);
+                return RedirectToAction("TakePhoto", "Home", new { passCardVisitorId = model.CardID });
             else
-                return RedirectToAction("GiveCard", model);
+                return RedirectToAction("GiveCard", "Home", new { passCardVisitorId = model.CardID });
         }
 
-        public ActionResult TakePhoto(ResponseCard model)
+        public ActionResult TakePhoto(string passCardVisitorId)
         {
-            return View(model);
+            ViewBag.PassCardVisitorId = passCardVisitorId;
+            return View();
         }
 
-        public ActionResult GiveCard(ResponseCard model)
+
+        public ActionResult SavePhoto(string passCardVisitorId, string base64photo)
+        {
+            var resp = ServiceHelper.SetVisitorsPhoto(passCardVisitorId, base64photo, "Terminal4k1t");
+
+            return RedirectToAction("GiveCard", passCardVisitorId);
+        }
+
+        public ActionResult GiveCard(string passCardVisitorId)
         {
             try
             {
@@ -95,11 +106,11 @@ namespace BpDmTerminal.Controllers
                 //if (cardResponse.isCardEnd)
                 //    ServiceHelper.CardsEnded("Terminal4k1t");
 
-                //ServiceHelper.SetVisitorsRFID(model.CardID, cardResponse.uid, "Terminal4k1t");
+                //ServiceHelper.SetVisitorsRFID(passCardVisitorId, cardResponse.uid, "Terminal4k1t");
 
                 return RedirectToAction("OfferTakeСard");
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return RedirectToAction("ErrorPage");
             }

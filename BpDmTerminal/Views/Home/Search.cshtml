@@ -93,6 +93,7 @@
     <div class="action-buttons">
         <form method="post" action="@Url.Action("ConfirmYes", "Home")" style="display:inline;">
             <input type="hidden" name="cardId" value="@Model.CardID" />
+            <input type="hidden" name="NeedPhoto" value="@Model.NeedPhoto.ToString().ToLower()" />
             <button type="submit" class="yes-button">Ия</button>
         </form>
 
