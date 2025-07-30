@@ -46,7 +46,7 @@ namespace BpDmTerminal.Controllers
                 resp.InvitersPhoneNumber = "74-56-98";
                 resp.CabinetNumber = "103";
                 resp.VisitorFullname = "Ләйлім";
-                resp.NeedPhoto = true;
+                resp.NeedPhoto = false;
                 resp.CardID = "01010109";
                 return View(resp);
 
@@ -86,7 +86,7 @@ namespace BpDmTerminal.Controllers
 
         public ActionResult SavePhoto(string passCardVisitorId, string base64photo)
         {
-            var resp = ServiceHelper.SetVisitorsPhoto(passCardVisitorId, base64photo, "Terminal4k1t");
+           // var resp = ServiceHelper.SetVisitorsPhoto(passCardVisitorId, base64photo, "Terminal4k1t");
 
             return RedirectToAction("GiveCard", passCardVisitorId);
         }
