@@ -28,5 +28,6 @@ namespace BpDmTerminal.Database
         public virtual DbSet<PassCardVisitorInfoLog> PassCardVisitorInfoLog { get; set; }
         public virtual DbSet<SearchRequestInfo> SearchRequestInfo { get; set; }
         public virtual DbSet<TerminalInfo> TerminalInfo { get; set; }
+        public virtual DbSet<TerminalError> TerminalError { get; set; }
     }
 }

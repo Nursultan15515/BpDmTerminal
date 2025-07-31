@@ -1,4 +1,5 @@
-﻿using BpDmTerminal.Models;
+﻿using BpDmTerminal.Database;
+using BpDmTerminal.Models;
 using BpDmTerminal.ServiceReference1;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,6 @@ namespace BpDmTerminal.Controllers
     {
         public ActionResult Index()
         {
-
             return View();
         }
 
@@ -35,27 +35,43 @@ namespace BpDmTerminal.Controllers
         {
             try
             {
-                //var resp = ServiceHelper.GetVisitor(searchValue, "Terminal4k1t");
+                using (var db = new TerminalEntities())
+                {
+                    LogHelper.AddSearchRequestInfo(db, searchValue, Request.UserHostAddress);
 
-                //if (resp.Status == false)
-                //    return RedirectToAction("PassCardNotFoundPage");
+                    var terminalName = db.TerminalInfo.Where(r => r.IpAddress == Request.UserHostAddress).Select(r => r.TerminalName).FirstOrDefault();
 
-                var resp = new ResponseCard();
-                resp.CabinetFloor = "1";
-                resp.InvitersFullname = "Ержан Нурсултан";
-                resp.InvitersPhoneNumber = "74-56-98";
-                resp.CabinetNumber = "103";
-                resp.VisitorFullname = "Ләйлім";
-                resp.NeedPhoto = false;
-                resp.CardID = "01010109";
-                return View(resp);
+                    if (string.IsNullOrEmpty(terminalName))
+                        terminalName = "Terminal4k1t";
 
+                    var response = ServiceHelper.GetVisitor(searchValue, "Terminal4k1t");
+
+                    if (response == null)
+                    {
+                        LogHelper.AddError("response is null", Request.UserHostAddress, $"Search; searchValue=${searchValue}");
+                        return RedirectToAction("ErrorPage");
+                    }
+
+                    if (response.Status == false)
+                        return RedirectToAction("PassCardNotFoundPage");
+
+
+                    //var resp = new ResponseCard();
+                    //resp.CabinetFloor = "1";
+                    //resp.InvitersFullname = "Ержан Нурсултан";
+                    //resp.InvitersPhoneNumber = "74-56-98";
+                    //resp.CabinetNumber = "103";
+                    //resp.VisitorFullname = "Ләйлім";
+                    //resp.NeedPhoto = false;
+                    //resp.CardID = "01010109";
+                    return View(response);
+                }
             }
             catch (Exception ex)
             {
+                LogHelper.AddError(ex.ToString(), Request.UserHostAddress, $"searchValue = {searchValue}");
                 return RedirectToAction("ErrorPage");
             }
-
         }
 
         public ActionResult PassCardNotFoundPage()
@@ -86,24 +102,76 @@ namespace BpDmTerminal.Controllers
 
         public ActionResult SavePhoto(string passCardVisitorId, string base64photo)
         {
-           // var resp = ServiceHelper.SetVisitorsPhoto(passCardVisitorId, base64photo, "Terminal4k1t");
+            try
+            {
+                using (var db = new TerminalEntities())
+                {
+                    LogHelper.AddPassCardVisitorInfoLog(db, passCardVisitorId, "", "savePhoto");
 
-            return RedirectToAction("GiveCard", passCardVisitorId);
+                    var terminalName = db.TerminalInfo.Where(r => r.IpAddress == Request.UserHostAddress).Select(r => r.TerminalName).FirstOrDefault();
+
+                    if (string.IsNullOrEmpty(terminalName))
+                        terminalName = "Terminal4k1t";
+
+                    var response = ServiceHelper.SetVisitorsPhoto(passCardVisitorId, base64photo, "Terminal4k1t");
+
+                    if (response == null)
+                    {
+                        LogHelper.AddError("response is null", Request.UserHostAddress, $"SavePhoto; passCardVisitorId={passCardVisitorId}; base64photoLength={base64photo.Length}");
+                        return RedirectToAction("ErrorPage");
+                    }
+
+                    if (!response.Status)
+                    {
+                        LogHelper.AddError("response status false", Request.UserHostAddress, $"SavePhoto; passCardVisitorId={passCardVisitorId}; base64photoLength={base64photo.Length}");
+                        return RedirectToAction("ErrorPage");
+                    }
+
+                    return RedirectToAction("GiveCard", passCardVisitorId);
+                }
+            }
+            catch (Exception ex) 
+            {
+                LogHelper.AddError(ex.ToString(), Request.UserHostAddress, $"SavePhoto; passCardVisitorId={passCardVisitorId}; base64photoLength={base64photo.Length}");
+                return RedirectToAction("ErrorPage");
+            }
         }
 
         public ActionResult GiveCard(string passCardVisitorId)
         {
-                ViewBag.passCardVisitorId = passCardVisitorId;
-                return View();
+            ViewBag.passCardVisitorId = passCardVisitorId;
+            return View();
         }
 
         public ActionResult SetVisitorsRFID(string passCardVisitorId, string rfidNumber)
         {
-            //ServiceHelper.SetVisitorsRFID(passCardVisitorId, rfidNumber, "Terminal4k1t");
+            try
+            {
+                using (var db = new TerminalEntities())
+                {
+                    LogHelper.AddPassCardVisitorInfoLog(db, passCardVisitorId, rfidNumber, "SetVisitorsRFID");
+                    var response = ServiceHelper.SetVisitorsRFID(passCardVisitorId, rfidNumber, "Terminal4k1t");
 
+                    if (response == null)
+                    {
+                        LogHelper.AddError("response is null", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId={passCardVisitorId}; rfidNumber={rfidNumber}");
+                        return RedirectToAction("ErrorPage");
+                    }
 
-            return RedirectToAction("OfferTakeСard");
-            //return Json(ServiceHelper.SetVisitorsRFID(passCardVisitorId, rfidNumber, "Terminal4k1t"), JsonRequestBehavior.AllowGet);
+                    if (!response.Status)
+                    { 
+                        LogHelper.AddError("response status false", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId={passCardVisitorId}; rfidNumber={rfidNumber}");
+                        return RedirectToAction("ErrorPage");
+                    }
+
+                    return RedirectToAction("OfferTakeСard");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.AddError(ex.ToString(), Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId={passCardVisitorId}; rfidNumber={rfidNumber}");
+                return RedirectToAction("ErrorPage");
+            }
         }
 
         public ActionResult OfferTakeСard()

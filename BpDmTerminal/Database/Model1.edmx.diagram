@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="DbTerminalBpDmModel.PassCardVisitorInfoLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DbTerminalBpDmModel.SearchRequestInfo" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DbTerminalBpDmModel.TerminalInfo" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbTerminalBpDmModel.TerminalError" Width="1.5" PointX="3.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
