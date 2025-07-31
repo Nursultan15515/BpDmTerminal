@@ -59,6 +59,7 @@
         cursor: pointer;
     }
 </style>
+
 <div class="container">
     <div class="main-content">
         <div class="text-block">
@@ -71,7 +72,12 @@
             @BpDmTerminal.Resources.Messages.Part4
             @BpDmTerminal.Resources.Messages.Part5
         </div>
+        @*<button id="testCard" onclick="requestCard()">
+            test request card
+        </button>*@
     </div>
+
+    
 
     <div class="bottom-panel">
         <form action="@Url.Action("SearchPassCardPage")">
@@ -87,3 +93,16 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    function requestCard() {
+        alert('requestCard 000 !');
+
+        fetch("http://localhost:8080/issue-card/", { method: "POST" })
+            .then(r => r.text())
+            .then(console.log)
+            .catch(console.error);
+
+    }
+</script>

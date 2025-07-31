@@ -117,8 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Back" xml:space="preserve">
+    <value>Артқа</value>
+  </data>
   <data name="DM" xml:space="preserve">
     <value>МИНИСТРЛІКТЕР ҮЙІ</value>
+  </data>
+  <data name="EnterIinOrDocnumber" xml:space="preserve">
+    <value>ЖСН немесе паспорт нөмірін енгізіңіз</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Жоқ</value>
+    <comment>Жоқ</comment>
   </data>
   <data name="Part1" xml:space="preserve">
     <value>Мен осыымен бір реттік рұқсаттаманың қауіпсіздігіне, сондай-ақ оны шығуда орнатылған картқабылдағышқа қайтаруға келісімімді беремін.</value>
@@ -140,5 +150,9 @@
   </data>
   <data name="Terminal" xml:space="preserve">
     <value>РҰҚСАТТАМА БЕРУ ТЕРМИНАЛЫ</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Иә</value>
+    <comment>Иә</comment>
   </data>
 </root>

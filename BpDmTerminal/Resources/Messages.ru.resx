@@ -117,8 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
   <data name="DM" xml:space="preserve">
     <value>ДОМ МИНИСТЕРСТВ</value>
+  </data>
+  <data name="EnterIinOrDocnumber" xml:space="preserve">
+    <value>Введите ИИН или номер паспорта</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+    <comment>Нет</comment>
   </data>
   <data name="Part1" xml:space="preserve">
     <value>Настоящим, даю свое согласие за сохранность разового пропуска, а также его возврат в картоприемник, установленный при выходе.</value>
@@ -141,5 +151,9 @@
   <data name="Terminal" xml:space="preserve">
     <value>ТЕРМИНАЛ БЮРО ПРОПУСКОВ</value>
     <comment>Добро пожаловать</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+    <comment>Да</comment>
   </data>
 </root>

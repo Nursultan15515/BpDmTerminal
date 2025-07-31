@@ -117,8 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Back" xml:space="preserve">
+    <value>back</value>
+  </data>
   <data name="DM" xml:space="preserve">
     <value>HOUSE OF MINISTRIES</value>
+  </data>
+  <data name="EnterIinOrDocnumber" xml:space="preserve">
+    <value>Введите ИИН или номер паспорта</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+    <comment>No</comment>
   </data>
   <data name="Part1" xml:space="preserve">
     <value>I hereby give my consent for the safety of a one-time pass, as well as its return to the card collector installed at the exit.</value>
@@ -141,5 +151,9 @@
   <data name="Terminal" xml:space="preserve">
     <value>PASS ISSUING TERMINAL</value>
     <comment>Welcome</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment>Yes</comment>
   </data>
 </root>
