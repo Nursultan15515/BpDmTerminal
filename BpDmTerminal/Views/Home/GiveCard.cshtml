@@ -1,0 +1,15 @@
+﻿<h1>Give card page</h1>
+
+<script>
+    document.getElementById("loaderId").style.display = "flex";
+
+    fetch("http://localhost:8080/issue-card/", { method: "POST" })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = `/Home/SetVisitorsRFID?passCardVisitorId=${@ViewBag.passCardVisitorId}&rfidNumber=${encodeURIComponent(data.uid) }`;
+            } else {
+                window.location.href = "/Home/ErrorPage";
+            }
+        })
+</script>

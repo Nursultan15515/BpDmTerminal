@@ -93,27 +93,17 @@ namespace BpDmTerminal.Controllers
 
         public ActionResult GiveCard(string passCardVisitorId)
         {
-            try
-            {
-                var cardResponse = CardRequester.IssueCard();
+                ViewBag.passCardVisitorId = passCardVisitorId;
+                return View();
+        }
 
-                if (!cardResponse.success)
-                    return RedirectToAction("ErrorPage");
+        public ActionResult SetVisitorsRFID(string passCardVisitorId, string rfidNumber)
+        {
+            //ServiceHelper.SetVisitorsRFID(passCardVisitorId, rfidNumber, "Terminal4k1t");
 
-                if (string.IsNullOrEmpty(cardResponse.uid))
-                    return RedirectToAction("ErrorPage");
 
-                //if (cardResponse.isCardEnd)
-                //    ServiceHelper.CardsEnded("Terminal4k1t");
-
-                //ServiceHelper.SetVisitorsRFID(passCardVisitorId, cardResponse.uid, "Terminal4k1t");
-
-                return RedirectToAction("OfferTakeСard");
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("ErrorPage");
-            }
+            return RedirectToAction("OfferTakeСard");
+            //return Json(ServiceHelper.SetVisitorsRFID(passCardVisitorId, rfidNumber, "Terminal4k1t"), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult OfferTakeСard()
