@@ -3,6 +3,7 @@ using BpDmTerminal.Models;
 using BpDmTerminal.ServiceReference1;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -42,9 +43,12 @@ namespace BpDmTerminal.Controllers
                     var terminalName = db.TerminalInfo.Where(r => r.IpAddress == Request.UserHostAddress).Select(r => r.TerminalName).FirstOrDefault();
 
                     if (string.IsNullOrEmpty(terminalName))
-                        terminalName = "Terminal4k1t";
+                    {
+                        LogHelper.AddError("terminalName is null or empty", Request.UserHostAddress, $"Search; searchValue=${searchValue}");
+                        return RedirectToAction("ErrorPage");
+                    }
 
-                    var response = ServiceHelper.GetVisitor(searchValue, "Terminal4k1t");
+                    var response = ServiceHelper.GetVisitor(searchValue, terminalName); //"Terminal4k1t"
 
                     if (response == null)
                     {
@@ -56,14 +60,14 @@ namespace BpDmTerminal.Controllers
                         return RedirectToAction("PassCardNotFoundPage");
 
 
-                    //var resp = new ResponseCard();
-                    //resp.CabinetFloor = "1";
-                    //resp.InvitersFullname = "Ержан Нурсултан";
-                    //resp.InvitersPhoneNumber = "74-56-98";
-                    //resp.CabinetNumber = "103";
-                    //resp.VisitorFullname = "Ләйлім";
-                    //resp.NeedPhoto = false;
-                    //resp.CardID = "01010109";
+                    //var response = new ResponseCard();
+                    //response.CabinetFloor = "1";
+                    //response.InvitersFullname = "Ержан Нурсултан";
+                    //response.InvitersPhoneNumber = "74-56-98";
+                    //response.CabinetNumber = "103";
+                    //response.VisitorFullname = "Ләйлім";
+                    //response.NeedPhoto = true;
+                    //response.CardID = "01010109";
                     return View(response);
                 }
             }
@@ -111,9 +115,12 @@ namespace BpDmTerminal.Controllers
                     var terminalName = db.TerminalInfo.Where(r => r.IpAddress == Request.UserHostAddress).Select(r => r.TerminalName).FirstOrDefault();
 
                     if (string.IsNullOrEmpty(terminalName))
-                        terminalName = "Terminal4k1t";
+                    {
+                        LogHelper.AddError("terminalName is null or empty", Request.UserHostAddress, $"SavePhoto; passCardVisitorId=${passCardVisitorId}");
+                        return RedirectToAction("ErrorPage");
+                    }
 
-                    var response = ServiceHelper.SetVisitorsPhoto(passCardVisitorId, base64photo, "Terminal4k1t");
+                    var response = ServiceHelper.SetVisitorsPhoto(passCardVisitorId, base64photo, terminalName);
 
                     if (response == null)
                     {
@@ -127,7 +134,7 @@ namespace BpDmTerminal.Controllers
                         return RedirectToAction("ErrorPage");
                     }
 
-                    return RedirectToAction("GiveCard", passCardVisitorId);
+                    return RedirectToAction("GiveCard", "Home", new { passCardVisitorId });
                 }
             }
             catch (Exception ex) 
@@ -150,7 +157,16 @@ namespace BpDmTerminal.Controllers
                 using (var db = new TerminalEntities())
                 {
                     LogHelper.AddPassCardVisitorInfoLog(db, passCardVisitorId, rfidNumber, "SetVisitorsRFID");
-                    var response = ServiceHelper.SetVisitorsRFID(passCardVisitorId, rfidNumber, "Terminal4k1t");
+
+                    var terminalName = db.TerminalInfo.Where(r => r.IpAddress == Request.UserHostAddress).Select(r => r.TerminalName).FirstOrDefault();
+
+                    if (string.IsNullOrEmpty(terminalName))
+                    {
+                        LogHelper.AddError("terminalName is null or empty", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId=${passCardVisitorId}");
+                        return RedirectToAction("ErrorPage");
+                    }
+
+                    var response = ServiceHelper.SetVisitorsRFID(passCardVisitorId, rfidNumber, terminalName);
 
                     if (response == null)
                     {
