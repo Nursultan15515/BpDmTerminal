@@ -150,7 +150,7 @@ namespace BpDmTerminal.Controllers
             return View();
         }
 
-        public ActionResult SetVisitorsRFID(string passCardVisitorId, string rfidNumber)
+        public ActionResult SetVisitorsRFID(string passCardVisitorId, string rfidNumber, bool isCardEnd)
         {
             try
             {
@@ -166,6 +166,9 @@ namespace BpDmTerminal.Controllers
                         return RedirectToAction("ErrorPage");
                     }
 
+                    if (isCardEnd)
+                        ServiceHelper.CardsEnded(terminalName);
+
                     var response = ServiceHelper.SetVisitorsRFID(passCardVisitorId, rfidNumber, terminalName);
 
                     if (response == null)
@@ -175,7 +178,7 @@ namespace BpDmTerminal.Controllers
                     }
 
                     if (!response.Status)
-                    { 
+                    {
                         LogHelper.AddError("response status false", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId={passCardVisitorId}; rfidNumber={rfidNumber}");
                         return RedirectToAction("ErrorPage");
                     }
