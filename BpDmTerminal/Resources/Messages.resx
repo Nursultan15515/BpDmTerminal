@@ -120,8 +120,11 @@
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="Camera" xml:space="preserve">
+    <value>Camera</value>
+  </data>
   <data name="ConfirmIfCorrect" xml:space="preserve">
-    <value>If it so, press "Yes", else press "No"</value>
+    <value>If it so, press «Yes», else press «No»</value>
   </data>
   <data name="DM" xml:space="preserve">
     <value>HOUSE OF MINISTRIES</value>
@@ -177,14 +180,32 @@
   <data name="PhoneNumber" xml:space="preserve">
     <value>Phone number</value>
   </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="PhotoInfo1" xml:space="preserve">
+    <value>Look at the camera on the terminal. Click the "Take a photo" button</value>
+  </data>
+  <data name="PhotoInfo2" xml:space="preserve">
+    <value>Photographing can be repeated several times until an acceptable result is achieved</value>
+  </data>
+  <data name="PhotoInfo3" xml:space="preserve">
+    <value>Then click the "Save and receive card" button</value>
+  </data>
   <data name="Room" xml:space="preserve">
     <value>Room</value>
+  </data>
+  <data name="SavePhotoAndGetCard" xml:space="preserve">
+    <value>Save and receive the card</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="TakePhoto" xml:space="preserve">
+    <value>Take a photo</value>
   </data>
   <data name="Terminal" xml:space="preserve">
     <value>PASS ISSUING TERMINAL</value>

@@ -19,7 +19,7 @@ namespace BpDmTerminal.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Messages {
@@ -70,7 +70,16 @@ namespace BpDmTerminal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If it so, press &quot;Yes&quot;, else press &quot;No&quot;.
+        ///   Looks up a localized string similar to Camera.
+        /// </summary>
+        public static string Camera {
+            get {
+                return ResourceManager.GetString("Camera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If it so, press «Yes», else press «No».
         /// </summary>
         public static string ConfirmIfCorrect {
             get {
@@ -241,11 +250,56 @@ namespace BpDmTerminal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Photo.
+        /// </summary>
+        public static string Photo {
+            get {
+                return ResourceManager.GetString("Photo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Look at the camera on the terminal. Click the &quot;Take a photo&quot; button.
+        /// </summary>
+        public static string PhotoInfo1 {
+            get {
+                return ResourceManager.GetString("PhotoInfo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photographing can be repeated several times until an acceptable result is achieved.
+        /// </summary>
+        public static string PhotoInfo2 {
+            get {
+                return ResourceManager.GetString("PhotoInfo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Then click the &quot;Save and receive card&quot; button.
+        /// </summary>
+        public static string PhotoInfo3 {
+            get {
+                return ResourceManager.GetString("PhotoInfo3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Room.
         /// </summary>
         public static string Room {
             get {
                 return ResourceManager.GetString("Room", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save and receive the card.
+        /// </summary>
+        public static string SavePhotoAndGetCard {
+            get {
+                return ResourceManager.GetString("SavePhotoAndGetCard", resourceCulture);
             }
         }
         
@@ -264,6 +318,15 @@ namespace BpDmTerminal.Resources {
         public static string Start {
             get {
                 return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take a photo.
+        /// </summary>
+        public static string TakePhoto {
+            get {
+                return ResourceManager.GetString("TakePhoto", resourceCulture);
             }
         }
         

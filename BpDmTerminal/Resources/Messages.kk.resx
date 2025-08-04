@@ -120,6 +120,9 @@
   <data name="Back" xml:space="preserve">
     <value>Артқа</value>
   </data>
+  <data name="Camera" xml:space="preserve">
+    <value>Камера</value>
+  </data>
   <data name="ConfirmIfCorrect" xml:space="preserve">
     <value>Бәрі дұрыс болған жағдайда «Ия», егер қате болса «Жоқ» батырмасын басыңыз</value>
   </data>
@@ -177,14 +180,32 @@
   <data name="PhoneNumber" xml:space="preserve">
     <value>Телефон</value>
   </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Сурет</value>
+  </data>
+  <data name="PhotoInfo1" xml:space="preserve">
+    <value>Терминалда орналасқан камераға қараңыз. "Суретке түсіру" түймесін басыңыз</value>
+  </data>
+  <data name="PhotoInfo2" xml:space="preserve">
+    <value>Қолайлы нәтижеге жеткенше суретке түсіруді бірнеше рет қайталауға болады</value>
+  </data>
+  <data name="PhotoInfo3" xml:space="preserve">
+    <value>Содан кейін "картаны сақтау және алу" батырмасын басыңыз</value>
+  </data>
   <data name="Room" xml:space="preserve">
     <value>Кабинет</value>
+  </data>
+  <data name="SavePhotoAndGetCard" xml:space="preserve">
+    <value>Сақтау және карта алу</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Іздеу</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Бастау</value>
+  </data>
+  <data name="TakePhoto" xml:space="preserve">
+    <value>Суретке түсіру</value>
   </data>
   <data name="Terminal" xml:space="preserve">
     <value>РҰҚСАТТАМА БЕРУ ТЕРМИНАЛЫ</value>

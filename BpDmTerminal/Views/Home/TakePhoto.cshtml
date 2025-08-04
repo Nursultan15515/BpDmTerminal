@@ -60,25 +60,25 @@
     <input type="hidden" name="base64photo" id="base64photo" />
 
     <p style="font-size: 18px; line-height: 1.4; margin-top: 80px;">
-        Посмотрите на камеру, находящуюся на терминале. Нажмите кнопку «Сделать фото»<br />
-        Фотографирование можно повторить несколько раз до достижения приемлемого результата.<br />
-        Затем нажмите кнопку «Сохранить и получить карту».
+        @BpDmTerminal.Resources.Messages.PhotoInfo1<br />
+        @BpDmTerminal.Resources.Messages.PhotoInfo2.<br />
+        @BpDmTerminal.Resources.Messages.PhotoInfo3.
     </p>
 
     <div class="photo-container">
         <!-- Камера -->
         <div class="frame-block">
-            <h3>Камера</h3>
+            <h3>@BpDmTerminal.Resources.Messages.Camera</h3>
             <video id="video" autoplay playsinline></video>
-            <button type="button" class="capture-button" onclick="capturePhoto()">Сделать фото</button>
+            <button type="button" class="capture-button" onclick="capturePhoto()">@BpDmTerminal.Resources.Messages.TakePhoto</button>
         </div>
 
         <!-- Снимок -->
         <div class="frame-block">
-            <h3>Снимок</h3>
+            <h3>@BpDmTerminal.Resources.Messages.Photo</h3>
             <canvas id="canvas" width="480" height="640"></canvas>
             <button type="submit" id="saveButton" class="done-button" style="display:none;" onclick="preparePhoto()">
-                Сохранить и получить карту
+                @BpDmTerminal.Resources.Messages.SavePhotoAndGetCard
             </button>
         </div>
     </div>

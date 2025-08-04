@@ -120,8 +120,11 @@
   <data name="Back" xml:space="preserve">
     <value>Назад</value>
   </data>
+  <data name="Camera" xml:space="preserve">
+    <value>Камера</value>
+  </data>
   <data name="ConfirmIfCorrect" xml:space="preserve">
-    <value>Если все верно, нажмите "Да", иначе нажмите "Нет"</value>
+    <value>Если все верно, нажмите «Да», иначе нажмите «Нет»</value>
   </data>
   <data name="DM" xml:space="preserve">
     <value>ДОМ МИНИСТЕРСТВ</value>
@@ -177,14 +180,32 @@
   <data name="PhoneNumber" xml:space="preserve">
     <value>Телефон</value>
   </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Снимок</value>
+  </data>
+  <data name="PhotoInfo1" xml:space="preserve">
+    <value>Посмотрите на камеру, находящуюся на терминале. Нажмите кнопку «Сделать фото»</value>
+  </data>
+  <data name="PhotoInfo2" xml:space="preserve">
+    <value>Фотографирование можно повторить несколько раз до достижения приемлемого результата</value>
+  </data>
+  <data name="PhotoInfo3" xml:space="preserve">
+    <value>Затем нажмите кнопку «Сохранить и получить карту»</value>
+  </data>
   <data name="Room" xml:space="preserve">
     <value>Кабинет</value>
+  </data>
+  <data name="SavePhotoAndGetCard" xml:space="preserve">
+    <value>Сохранить и получить карту</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Начать</value>
+  </data>
+  <data name="TakePhoto" xml:space="preserve">
+    <value>Сделать фото</value>
   </data>
   <data name="Terminal" xml:space="preserve">
     <value>ТЕРМИНАЛ БЮРО ПРОПУСКОВ</value>
