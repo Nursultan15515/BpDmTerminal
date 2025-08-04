@@ -25,26 +25,28 @@
 
 <div class="not-found-wrapper">
     <button class="not-found-button" id="countdownButton" onclick="goBackNow()">
-        Пропуск не найдено (10)
+        @BpDmTerminal.Resources.Messages.ErrorInfo (15)
     </button>
 </div>
 
 @section scripts {
     <script>
-    let secondsLeft = 15;
-    const button = document.getElementById("countdownButton");
+        let secondsLeft = 15;
+        const button = document.getElementById("countdownButton");
 
-    const interval = setInterval(() => {
-        secondsLeft--;
-        button.innerText = `Возникло ошибка в системе (${secondsLeft})`;
-        if (secondsLeft === 0) {
-            clearInterval(interval);
-            goBackNow();
+        const interval = setInterval(() => {
+            secondsLeft--;
+
+            button.innerText = `@BpDmTerminal.Resources.Messages.ErrorInfo (${secondsLeft})`;
+
+            if (secondsLeft === 0) {
+                clearInterval(interval);
+                goBackNow();
+            }
+        }, 1000);
+
+        function goBackNow() {
+            window.location.href = '@Url.Action("Index", "Home")';
         }
-    }, 1000);
-
-    function goBackNow() {
-        window.location.href = '@Url.Action("Index", "Home")';
-    }
     </script>
 }

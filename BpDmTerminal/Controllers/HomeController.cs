@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -38,36 +39,36 @@ namespace BpDmTerminal.Controllers
             {
                 using (var db = new TerminalEntities())
                 {
-                    LogHelper.AddSearchRequestInfo(db, searchValue, Request.UserHostAddress);
+                    //LogHelper.AddSearchRequestInfo(db, searchValue, Request.UserHostAddress);
 
-                    var terminalName = db.TerminalInfo.Where(r => r.IpAddress == Request.UserHostAddress).Select(r => r.TerminalName).FirstOrDefault();
+                    //var terminalName = db.TerminalInfo.Where(r => r.IpAddress == Request.UserHostAddress).Select(r => r.TerminalName).FirstOrDefault();
 
-                    if (string.IsNullOrEmpty(terminalName))
-                    {
-                        LogHelper.AddError("terminalName is null or empty", Request.UserHostAddress, $"Search; searchValue=${searchValue}");
-                        return RedirectToAction("ErrorPage");
-                    }
+                    //if (string.IsNullOrEmpty(terminalName))
+                    //{
+                    //    LogHelper.AddError("terminalName is null or empty", Request.UserHostAddress, $"Search; searchValue=${searchValue}");
+                    //    return RedirectToAction("ErrorPage");
+                    //}
 
-                    var response = ServiceHelper.GetVisitor(searchValue, terminalName); //"Terminal4k1t"
+                    //var response = ServiceHelper.GetVisitor(searchValue, terminalName); //"Terminal4k1t"
 
-                    if (response == null)
-                    {
-                        LogHelper.AddError("response is null", Request.UserHostAddress, $"Search; searchValue=${searchValue}");
-                        return RedirectToAction("ErrorPage");
-                    }
+                    //if (response == null)
+                    //{
+                    //    LogHelper.AddError("response is null", Request.UserHostAddress, $"Search; searchValue=${searchValue}");
+                    //    return RedirectToAction("ErrorPage");
+                    //}
 
-                    if (response.Status == false)
-                        return RedirectToAction("PassCardNotFoundPage");
+                    //if (response.Status == false)
+                    //    return RedirectToAction("PassCardNotFoundPage");
 
 
-                    //var response = new ResponseCard();
-                    //response.CabinetFloor = "1";
-                    //response.InvitersFullname = "Ержан Нурсултан";
-                    //response.InvitersPhoneNumber = "74-56-98";
-                    //response.CabinetNumber = "103";
-                    //response.VisitorFullname = "Ләйлім";
-                    //response.NeedPhoto = true;
-                    //response.CardID = "01010109";
+                    var response = new ResponseCard();
+                    response.CabinetFloor = "1";
+                    response.InvitersFullname = "Ержан Нурсултан";
+                    response.InvitersPhoneNumber = "74-56-98";
+                    response.CabinetNumber = "103";
+                    response.VisitorFullname = "Ләйлім";
+                    response.NeedPhoto = true;
+                    response.CardID = "01010109";
                     return View(response);
                 }
             }
@@ -80,11 +81,13 @@ namespace BpDmTerminal.Controllers
 
         public ActionResult PassCardNotFoundPage()
         {
+            ViewBag.CurrentLang = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
             return View();
         }
 
         public ActionResult ErrorPage()
         {
+            ViewBag.CurrentLang = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
             return View();
         }
 
@@ -195,6 +198,23 @@ namespace BpDmTerminal.Controllers
 
         public ActionResult OfferTakeСard()
         {
+            var currentLanguage = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+            ViewBag.CurrentLang = currentLanguage;
+
+            ViewBag.TakeCardInfo = "";
+            switch (currentLanguage)
+            {
+                case "kk":
+                    ViewBag.TakeCardInfo = "15 секунд ішінде картаны алуыңызды өтінеміз";
+                    break;
+                case "ru":
+                    ViewBag.TakeCardInfo = "Пожалуйста, заберите карту в течение 15 секунд";
+                    break;
+                default: 
+                    ViewBag.TakeCardInfo = "Please take your card within 15 seconds";
+                    break;
+            }
+            
             return View();
         }
 

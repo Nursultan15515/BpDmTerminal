@@ -120,15 +120,35 @@
   <data name="Back" xml:space="preserve">
     <value>Артқа</value>
   </data>
+  <data name="ConfirmIfCorrect" xml:space="preserve">
+    <value>Бәрі дұрыс болған жағдайда «Ия», егер қате болса «Жоқ» батырмасын басыңыз</value>
+  </data>
   <data name="DM" xml:space="preserve">
     <value>МИНИСТРЛІКТЕР ҮЙІ</value>
   </data>
   <data name="EnterIinOrDocnumber" xml:space="preserve">
     <value>ЖСН немесе паспорт нөмірін енгізіңіз</value>
   </data>
+  <data name="ErrorInfo" xml:space="preserve">
+    <value>Жүйеде қателік кетті</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Шығу</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>Қабат</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Аты-жөні тегі</value>
+  </data>
+  <data name="IIN" xml:space="preserve">
+    <value>ЖСН</value>
+  </data>
+  <data name="InvitedBy" xml:space="preserve">
+    <value>Шақырушы</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>Жоқ</value>
-    <comment>Жоқ</comment>
   </data>
   <data name="Part1" xml:space="preserve">
     <value>Мен осыымен бір реттік рұқсаттаманың қауіпсіздігіне, сондай-ақ оны шығуда орнатылған картқабылдағышқа қайтаруға келісімімді беремін.</value>
@@ -145,6 +165,24 @@
   <data name="Part5" xml:space="preserve">
     <value>Рұқсаттама алу үшін терминал экранынан тілді таңдап, «БАСТАУ» батырмасын басыңыз.</value>
   </data>
+  <data name="PassCardInfoConfirmation" xml:space="preserve">
+    <value>РҰҚСАТТАМА ЖАЙЛЫ АҚПАРАТТЫ РАСТАУ</value>
+  </data>
+  <data name="PassCardInfoConfirmationCheck" xml:space="preserve">
+    <value>Рұқсаттама жайлы мәліметтің дұрыстығын тексеріңіз</value>
+  </data>
+  <data name="PassCardNotFound" xml:space="preserve">
+    <value>Рұқсаттама табылмады</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Room" xml:space="preserve">
+    <value>Кабинет</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Іздеу</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>Бастау</value>
   </data>
@@ -153,6 +191,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Иә</value>
-    <comment>Иә</comment>
   </data>
 </root>

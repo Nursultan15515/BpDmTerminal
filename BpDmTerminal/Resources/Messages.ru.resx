@@ -120,15 +120,35 @@
   <data name="Back" xml:space="preserve">
     <value>Назад</value>
   </data>
+  <data name="ConfirmIfCorrect" xml:space="preserve">
+    <value>Если все верно, нажмите "Да", иначе нажмите "Нет"</value>
+  </data>
   <data name="DM" xml:space="preserve">
     <value>ДОМ МИНИСТЕРСТВ</value>
   </data>
   <data name="EnterIinOrDocnumber" xml:space="preserve">
     <value>Введите ИИН или номер паспорта</value>
   </data>
+  <data name="ErrorInfo" xml:space="preserve">
+    <value>Возникло ошибка в системе</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>Этаж</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>ФИО</value>
+  </data>
+  <data name="IIN" xml:space="preserve">
+    <value>ИИН</value>
+  </data>
+  <data name="InvitedBy" xml:space="preserve">
+    <value>Пригласивший</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>Нет</value>
-    <comment>Нет</comment>
   </data>
   <data name="Part1" xml:space="preserve">
     <value>Настоящим, даю свое согласие за сохранность разового пропуска, а также его возврат в картоприемник, установленный при выходе.</value>
@@ -145,15 +165,31 @@
   <data name="Part5" xml:space="preserve">
     <value>Для получения пропуска выберите язык и нажмите кнопку "НАЧАТЬ"</value>
   </data>
+  <data name="PassCardInfoConfirmation" xml:space="preserve">
+    <value>Подтверждение информации о пропуске</value>
+  </data>
+  <data name="PassCardInfoConfirmationCheck" xml:space="preserve">
+    <value>Проверьте корректность сведений о пропуске</value>
+  </data>
+  <data name="PassCardNotFound" xml:space="preserve">
+    <value>Пропуск не найдено</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Room" xml:space="preserve">
+    <value>Кабинет</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>Начать</value>
   </data>
   <data name="Terminal" xml:space="preserve">
     <value>ТЕРМИНАЛ БЮРО ПРОПУСКОВ</value>
-    <comment>Добро пожаловать</comment>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Да</value>
-    <comment>Да</comment>
   </data>
 </root>

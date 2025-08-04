@@ -75,30 +75,30 @@
 
 <div class="visitor-container">
     <div class="header-text">
-        <h1>РҰҚСАТТАМА ЖАЙЛЫ АҚПАРАТТЫ РАСТАУ</h1>
+        <h1>@BpDmTerminal.Resources.Messages.PassCardInfoConfirmation</h1>
         <p>
-            Рұқсаттама жайлы мәліметтің дұрыстығын тексеріңіз.<br />
-            Бәрі дұрыс болған жағдайда «Ия», егер қате болса «Жоқ» батырмасын басыңыз.
+            @BpDmTerminal.Resources.Messages.PassCardInfoConfirmationCheck.<br />
+            @BpDmTerminal.Resources.Messages.ConfirmIfCorrect.
         </p>
     </div>
 
     <div class="info-box">
-        <div><strong>Аты-жөні тегі:</strong> @Model.VisitorFullname</div>
-        <div><strong>Қабат:</strong> @Model.CabinetFloor</div>
-        <div><strong>Кабинет:</strong> @Model.CabinetNumber</div>
-        <div><strong>Шақырушы:</strong> @Model.InvitersFullname</div>
-        <div><strong>Телефон:</strong> @Model.InvitersPhoneNumber</div>
+        <div><strong>@BpDmTerminal.Resources.Messages.FullName:</strong> @Model.VisitorFullname</div>
+        <div><strong>@BpDmTerminal.Resources.Messages.Floor:</strong> @Model.CabinetFloor</div>
+        <div><strong>@BpDmTerminal.Resources.Messages.Room:</strong> @Model.CabinetNumber</div>
+        <div><strong>@BpDmTerminal.Resources.Messages.InvitedBy:</strong> @Model.InvitersFullname</div>
+        <div><strong>@BpDmTerminal.Resources.Messages.PhoneNumber:</strong> @Model.InvitersPhoneNumber</div>
     </div>
 
     <div class="action-buttons">
         <form method="post" action="@Url.Action("ConfirmYes", "Home")" style="display:inline;">
             <input type="hidden" name="cardId" value="@Model.CardID" />
             <input type="hidden" name="NeedPhoto" value="@Model.NeedPhoto.ToString().ToLower()" />
-            <button type="submit" class="yes-button">Ия</button>
+            <button type="submit" class="yes-button">@BpDmTerminal.Resources.Messages.Yes</button>
         </form>
 
         <form method="get" action="@Url.Action("Index", "Home")" style="display:inline;">
-            <button type="submit" class="no-button">Жоқ</button>
+            <button type="submit" class="no-button">@BpDmTerminal.Resources.Messages.No</button>
         </form>
     </div>
 </div>

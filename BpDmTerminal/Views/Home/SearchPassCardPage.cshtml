@@ -5,7 +5,7 @@
 <link href="~/Content/keyboard.css" rel="stylesheet" />
 
 <div style="margin-bottom: 15px; font-size: 26px;">
-    Введите ИИН или номер паспорта
+    @BpDmTerminal.Resources.Messages.EnterIinOrDocnumber
 </div>
 
 <form method="post" action="/Home/Search" id="searchPassCard">
@@ -17,11 +17,11 @@
     <div class="keyboard-wrapper" id="keyboardContainer"></div>
 
     <div class="action-buttons">
-        <button type="submit">🔍 Поиск</button>
+        <button type="submit">🔍 @BpDmTerminal.Resources.Messages.Search</button>
     </div>
 </form>
 
-<button class="back-button" onclick="window.location.href='@Url.Action("Index", "Home")'">⬅ Назад</button>
+<button class="back-button" onclick="window.location.href='@Url.Action("Index", "Home")'">⬅ @BpDmTerminal.Resources.Messages.Back</button>
 
 @section scripts {
     <script>

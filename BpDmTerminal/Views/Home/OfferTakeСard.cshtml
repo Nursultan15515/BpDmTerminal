@@ -34,7 +34,7 @@
 
 <div class="not-found-wrapper">
     <button class="not-found-button green-button" id="countdownButton" onclick="goBackNow()">
-        Пожалуйста, заберите карту в течение 15 секунд.
+        @ViewBag.TakeCardInfo
     </button>
 </div>
 
@@ -46,7 +46,16 @@
         const interval = setInterval(() => {
             secondsLeft--;
 
-            button.innerText = `Пожалуйста, заберите карту в течение ${secondsLeft} секунд.`;
+            switch ('@ViewBag.CurrentLang') {
+                case "kk":
+                    button.innerText = `${secondsLeft} секунд ішінде картаны алуыңызды өтінеміз`;
+                    break;
+                case "ru":
+                    button.innerText = `Пожалуйста, заберите карту в течение ${secondsLeft} секунд`;
+                    break;
+                default: 
+                    button.innerText = `Please take your card within ${secondsLeft} seconds`;
+            }
 
             if (secondsLeft <= 5) {
                 button.classList.remove("green-button");
