@@ -39,36 +39,36 @@ namespace BpDmTerminal.Controllers
             {
                 using (var db = new TerminalEntities())
                 {
-                    //LogHelper.AddSearchRequestInfo(db, searchValue, Request.UserHostAddress);
+                    LogHelper.AddSearchRequestInfo(db, searchValue, Request.UserHostAddress);
 
-                    //var terminalName = db.TerminalInfo.Where(r => r.IpAddress == Request.UserHostAddress).Select(r => r.TerminalName).FirstOrDefault();
+                    var terminalName = db.TerminalInfo.Where(r => r.IpAddress == Request.UserHostAddress).Select(r => r.TerminalName).FirstOrDefault();
 
-                    //if (string.IsNullOrEmpty(terminalName))
-                    //{
-                    //    LogHelper.AddError("terminalName is null or empty", Request.UserHostAddress, $"Search; searchValue=${searchValue}");
-                    //    return RedirectToAction("ErrorPage");
-                    //}
+                    if (string.IsNullOrEmpty(terminalName))
+                    {
+                        LogHelper.AddError("terminalName is null or empty", Request.UserHostAddress, $"Search; searchValue=${searchValue}");
+                        return RedirectToAction("ErrorPage");
+                    }
 
-                    //var response = ServiceHelper.GetVisitor(searchValue, terminalName); //"Terminal4k1t"
+                    var response = ServiceHelper.GetVisitor(searchValue, terminalName); //"Terminal4k1t"
 
-                    //if (response == null)
-                    //{
-                    //    LogHelper.AddError("response is null", Request.UserHostAddress, $"Search; searchValue=${searchValue}");
-                    //    return RedirectToAction("ErrorPage");
-                    //}
+                    if (response == null)
+                    {
+                        LogHelper.AddError("response is null", Request.UserHostAddress, $"Search; searchValue=${searchValue}");
+                        return RedirectToAction("ErrorPage");
+                    }
 
-                    //if (response.Status == false)
-                    //    return RedirectToAction("PassCardNotFoundPage");
+                    if (response.Status == false)
+                        return RedirectToAction("PassCardNotFoundPage");
 
 
-                    var response = new ResponseCard();
-                    response.CabinetFloor = "1";
-                    response.InvitersFullname = "Ержан Нурсултан";
-                    response.InvitersPhoneNumber = "74-56-98";
-                    response.CabinetNumber = "103";
-                    response.VisitorFullname = "Ләйлім";
-                    response.NeedPhoto = true;
-                    response.CardID = "01010109";
+                    //var response = new ResponseCard();
+                    //response.CabinetFloor = "1";
+                    //response.InvitersFullname = "Ержан Нурсултан";
+                    //response.InvitersPhoneNumber = "74-56-98";
+                    //response.CabinetNumber = "103";
+                    //response.VisitorFullname = "Ләйлім";
+                    //response.NeedPhoto = true;
+                    //response.CardID = "01010109";
                     return View(response);
                 }
             }

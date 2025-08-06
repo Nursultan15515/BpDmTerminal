@@ -77,3 +77,15 @@
         color: white;
         cursor: pointer;
     }
+
+.keyboard-button:active {
+    transform: scale(0.95);
+    background-color: #004c99; /* немного темнее для визуального эффекта */
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+}
+
+#backspaceButton:active,
+.action-buttons button:active {
+    transform: scale(0.95);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+}
