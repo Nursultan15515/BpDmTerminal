@@ -90,8 +90,11 @@ namespace BpDmTerminal.Controllers
             return View();
         }
 
-        public ActionResult ErrorPage()
+        public ActionResult ErrorPage(string errorMessage = null)
         {
+            if (!string.IsNullOrEmpty(errorMessage))
+                LogHelper.AddError(errorMessage, Request.UserHostAddress, "");
+
             ViewBag.CurrentLang = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
             return View();
         }
@@ -145,7 +148,7 @@ namespace BpDmTerminal.Controllers
                     return RedirectToAction("GiveCard", "Home", new { passCardVisitorId });
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 LogHelper.AddError(ex.ToString(), Request.UserHostAddress, $"SavePhoto; passCardVisitorId={passCardVisitorId}; base64photoLength={base64photo.Length}");
                 return RedirectToAction("ErrorPage");
@@ -158,7 +161,7 @@ namespace BpDmTerminal.Controllers
             return View();
         }
 
-        public ActionResult SetVisitorsRFID(string passCardVisitorId, string rfidNumber, bool isCardEnd)
+        public ActionResult SetVisitorsRFID(string passCardVisitorId, string rfidNumber)
         {
             try
             {
@@ -173,9 +176,6 @@ namespace BpDmTerminal.Controllers
                         LogHelper.AddError("terminalName is null or empty", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId=${passCardVisitorId}");
                         return RedirectToAction("ErrorPage");
                     }
-
-                    if (isCardEnd)
-                        ServiceHelper.CardsEnded(terminalName);
 
                     var response = ServiceHelper.SetVisitorsRFID(passCardVisitorId, rfidNumber, terminalName);
 
@@ -215,13 +215,38 @@ namespace BpDmTerminal.Controllers
                 case "ru":
                     ViewBag.TakeCardInfo = "Пожалуйста, заберите карту в течение 15 секунд";
                     break;
-                default: 
+                default:
                     ViewBag.TakeCardInfo = "Please take your card within 15 seconds";
                     break;
             }
-            
+
             return View();
         }
 
+        public ActionResult SendCardEndInformation()
+        {
+            using (var db = new TerminalEntities())
+            {
+                try
+                {
+                    var terminalName = db.TerminalInfo.Where(r => r.IpAddress == Request.UserHostAddress).Select(r => r.TerminalName).FirstOrDefault();
+
+                    if (string.IsNullOrEmpty(terminalName))
+                    {
+                        LogHelper.AddError("terminalName is null or empty", Request.UserHostAddress, $"SendCardEndInformation");
+                        return RedirectToAction("ErrorPage");
+                    }
+
+                    ServiceHelper.CardsEnded(terminalName);
+
+                    return Json("Ok", JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.AddError(ex.ToString(), Request.UserHostAddress, "SendCardEndInformation");
+                    return RedirectToAction("ErrorPage");
+                }
+            }
+        }
     }
 }

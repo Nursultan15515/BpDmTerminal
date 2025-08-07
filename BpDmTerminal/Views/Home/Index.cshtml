@@ -74,14 +74,10 @@
         </div>
     </div>
 
-    
-
     <div class="bottom-panel">
-        <form action="@Url.Action("SearchPassCardPage")">
-            <button type="submit" class="start-button">
-                @BpDmTerminal.Resources.Messages.Start
-            </button>
-        </form>
+        <button type="button" onclick="sendCardEndInformation()" class="start-button">
+            @BpDmTerminal.Resources.Messages.Start
+        </button>
 
         <div class="lang-buttons" style="margin-top: 25px;">
             <button onclick="location.href='@Url.Action("SetLanguage", new { lang = "kk" })'">Kaz</button>
@@ -90,3 +86,39 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    function tryStart() {
+        fetch("http://localhost:8080/card-status/", { method: "POST" })
+            .then(response => {
+                if (!response.ok) {
+                    window.location.href = `/Home/ErrorPage?errorMessage=${response.status}`;
+                }
+                return response.json();
+            })
+            .then(data => {
+
+                if (data.status === 0) {
+                    alert("В терминале нет карты для выдачи");
+                    sendCardEndInformation();
+                    return;
+                }
+
+                if (data.status === 1)
+                    sendCardEndInformation();
+
+                window.location.href = "/Home/SearchPassCardPage";
+            })
+            .catch(error => {
+                window.location.href = `/Home/ErrorPage?errorMessage=${error}`;
+            });
+    }
+
+    function sendCardEndInformation() {
+        fetch("/Home/SendCardEndInformation")
+            .then(r => r.json())
+            .then(data => { });
+    }
+
+</script>

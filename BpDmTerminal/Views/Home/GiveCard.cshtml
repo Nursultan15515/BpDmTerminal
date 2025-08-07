@@ -7,7 +7,7 @@
         .then(r => r.json())
         .then(data => {
             if (data.success) {
-                window.location.href = `/Home/SetVisitorsRFID?passCardVisitorId=${@ViewBag.passCardVisitorId}&rfidNumber=${encodeURIComponent(data.uid)}&isCardEnd=${data.isCardEnd}`;
+                window.location.href = `/Home/SetVisitorsRFID?passCardVisitorId=${@ViewBag.passCardVisitorId}&rfidNumber=${encodeURIComponent(data.uid)}`;
             } else {
                 window.location.href = "/Home/ErrorPage";
             }
