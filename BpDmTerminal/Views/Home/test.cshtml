@@ -1,0 +1,33 @@
+﻿
+<button id="getcard" onclick="getcard()">GetCard</button>
+<br />
+<button id="checkStatus" onclick="checkStatus()">CheckStatus</button>
+
+<script>
+    function getcard() {
+        fetch("http://localhost:8080/issue-card/", { method: "POST" })
+            .then(r => r.json())
+            .then(data => {
+                if (data) {
+                    console.log(data);
+                } else {
+                    alert('error');
+                    console.log(data);
+                }
+            });
+    }
+
+    function checkStatus() {
+        fetch("http://localhost:8080/card-status/", { method: "POST" })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    console.log(data);
+                } else {
+                    //window.location.href = "/Home/ErrorPage";
+                    alert('error');
+                    console.log(data);
+                }
+            });
+    }
+</script>

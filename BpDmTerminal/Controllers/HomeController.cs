@@ -19,6 +19,11 @@ namespace BpDmTerminal.Controllers
             return View();
         }
 
+        public ActionResult test()
+        {
+            return View();
+        }
+
         public ActionResult SetLanguage(string lang)
         {
             HttpCookie langCookie = new HttpCookie("lang", lang);
