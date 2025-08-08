@@ -75,7 +75,7 @@
     </div>
 
     <div class="bottom-panel">
-        <button type="button" onclick="sendCardEndInformation()" class="start-button">
+        <button type="button" onclick="tryStart()" class="start-button">
             @BpDmTerminal.Resources.Messages.Start
         </button>
 
@@ -90,6 +90,8 @@
 
 <script>
     function tryStart() {
+        document.getElementById("loaderId").style.display = "flex";
+
         fetch("http://localhost:8080/card-status/", { method: "POST" })
             .then(response => {
                 if (!response.ok) {
@@ -98,7 +100,7 @@
                 return response.json();
             })
             .then(data => {
-
+                document.getElementById("loaderId").style.display = "none";
                 if (data.status === 0) {
                     alert("В терминале нет карты для выдачи");
                     sendCardEndInformation();
