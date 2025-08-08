@@ -1,33 +1,75 @@
-﻿
-<button id="getcard" onclick="getcard()">GetCard</button>
+﻿<button id="getcard" onclick="getcard()">GetRfid</button>
+<br />
+<button onclick="takeCard()">TakeCard</button>
 <br />
 <button id="checkStatus" onclick="checkStatus()">CheckStatus</button>
 
 <script>
+    let pendingOpId = null;
+    let pendingUid = null;
+
     function getcard() {
         fetch("http://localhost:8080/issue-card/", { method: "POST" })
             .then(r => r.json())
             .then(data => {
-                if (data) {
-                    console.log(data);
-                } else {
-                    alert('error');
-                    console.log(data);
+                console.log("issue-card →", data);
+                if (!data || !data.success) {
+                    alert("Ошибка чтения UID: " + (data && data.error));
+                    return;
                 }
+
+                pendingOpId = data.operationId;   // сохраняем operationId
+                pendingUid = data.uid;
+
+                // на время ожидания подтверждения кнопку блокируем, чтобы не плодить запросы
+                document.getElementById("getcard").disabled = true;
+
+                console.log("UID:", pendingUid, "op:", pendingOpId, "timeout:", data.timeoutSec);
+                alert(`UID: ${pendingUid}\nop: ${pendingOpId}\nПодтверди через TakeCard`);
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Сеть/сервер недоступен");
+            });
+    }
+
+    function takeCard(allow = false) {
+        if (!pendingOpId) {
+            alert("Нет активной операции. Сначала нажми GetRfid.");
+            return;
+        }
+
+        fetch("http://localhost:8080/confirm/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ operationId: pendingOpId, allow })
+        })
+            .then(r => r.json())
+            .then(data => {
+                console.log("confirm →", data);
+                if (!data || data.error) {
+                    alert("Ошибка подтверждения: " + (data && data.error));
+                    return;
+                }
+
+                alert(`OK: ${data.action} (uid=${data.uid || pendingUid || "-"})`);
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Сеть/сервер недоступен");
+            })
+            .finally(() => {
+                // очищаем состояние и разблокируем кнопку
+                pendingOpId = null;
+                pendingUid = null;
+                document.getElementById("getcard").disabled = false;
             });
     }
 
     function checkStatus() {
         fetch("http://localhost:8080/card-status/", { method: "POST" })
             .then(r => r.json())
-            .then(data => {
-                if (data.success) {
-                    console.log(data);
-                } else {
-                    //window.location.href = "/Home/ErrorPage";
-                    alert('error');
-                    console.log(data);
-                }
-            });
+            .then(data => console.log("status →", data))
+            .catch(console.error);
     }
 </script>
