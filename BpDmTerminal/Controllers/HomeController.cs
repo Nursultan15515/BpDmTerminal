@@ -167,14 +167,13 @@ namespace BpDmTerminal.Controllers
             {
                 using (var db = new TerminalEntities())
                 {
-                    LogHelper.AddPassCardVisitorInfoLog(db, passCardVisitorId, rfidNumber, "SetVisitorsRFID");
+                    LogHelper.AddPassCardVisitorInfoLog(db, passCardVisitorId, rfidNumber, "Try SetVisitorsRFID");
 
                     var terminalName = db.TerminalInfo.Where(r => r.IpAddress == Request.UserHostAddress).Select(r => r.TerminalName).FirstOrDefault();
 
                     if (string.IsNullOrEmpty(terminalName))
                     {
                         LogHelper.AddError("terminalName is null or empty", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId=${passCardVisitorId}");
-                        //return RedirectToAction("ErrorPage");
                         return Json(new { status = false }, JsonRequestBehavior.AllowGet);
                     }
 
@@ -183,19 +182,17 @@ namespace BpDmTerminal.Controllers
                     if (response == null)
                     {
                         LogHelper.AddError("response is null", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId={passCardVisitorId}; rfidNumber={rfidNumber}");
-                        //return RedirectToAction("ErrorPage");
                         return Json(new { status = false }, JsonRequestBehavior.AllowGet);
                     }
 
                     if (!response.Status)
                     {
                         LogHelper.AddError("response status false", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId={passCardVisitorId}; rfidNumber={rfidNumber}");
-                        //return RedirectToAction("ErrorPage");
                         return Json(new { status = false }, JsonRequestBehavior.AllowGet);
                     }
 
-                    return Json(new { status = false }, JsonRequestBehavior.AllowGet);
-                    //return RedirectToAction("OfferTakeСard");
+                    LogHelper.AddPassCardVisitorInfoLog(db, passCardVisitorId, rfidNumber, "Success SetVisitorsRFID");
+                    return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
