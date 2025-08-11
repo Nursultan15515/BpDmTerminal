@@ -12,7 +12,7 @@
         .then(data => {
             if (data.success) {
 
-                pendingOpId = data.operationId;   // сохраняем operationId
+                pendingOpId = data.operationId;
                 pendingUid = data.uid;
 
                 setVisitorsRFID('@ViewBag.passCardVisitorId', encodeURIComponent(data.uid));
@@ -31,12 +31,10 @@
 
             if (data.status == true) {
                 takeOrReturnCard(true);
-                window.location.href = "/Home/OfferTakeСard";
             }
             else
             {
                 takeOrReturnCard(false);
-                window.location.href = "/Home/ErrorPage";
             }
         })
     }
@@ -55,16 +53,22 @@
                     return;
                 }
 
-                alert(`OK: ${data.action} (uid=${data.uid || pendingUid || "-"})`);
+                //alert(`OK: ${data.action} (uid=${data.uid || pendingUid || "-"})`);
             })
             .catch(err => {
                 console.error(err);
-                alert("Сеть/сервер недоступен");
+                alert(err);
             })
             .finally(() => {
                 // очищаем состояние
                 pendingOpId = null;
                 pendingUid = null;
+
+                if (allow === true) {
+                    window.location.href = "/Home/OfferTakeСard";
+                } else {
+                    window.location.href = "/Home/ErrorPage";
+                }
             });
     }
 </script>
