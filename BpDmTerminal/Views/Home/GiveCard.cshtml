@@ -1,15 +1,70 @@
 ﻿<h1>Give card page</h1>
 
 <script>
+
+    let pendingOpId = null;
+    let pendingUid = null;
+
     document.getElementById("loaderId").style.display = "flex";
 
     fetch("http://localhost:8080/issue-card/", { method: "POST" })
         .then(r => r.json())
         .then(data => {
             if (data.success) {
-                window.location.href = `/Home/SetVisitorsRFID?passCardVisitorId=${@ViewBag.passCardVisitorId}&rfidNumber=${encodeURIComponent(data.uid)}`;
+
+                pendingOpId = data.operationId;   // сохраняем operationId
+                pendingUid = data.uid;
+
+                setVisitorsRFID('@ViewBag.passCardVisitorId', encodeURIComponent(data.uid));
+
             } else {
                 window.location.href = "/Home/ErrorPage";
             }
+        });
+
+    function setVisitorsRFID(passCardVisitorId, rfidNumber) {
+
+        fetch(`/Home/SetVisitorsRFID?passCardVisitorId=${passCardVisitorId}&rfidNumber=${rfidNumber}`, { method: "POST" })
+        .then(r => r.json())
+        .then(data => {
+            console.log('setVisitorsRFID data=', data);
+
+            if (data.status == true) {
+                takeOrReturnCard(true);
+                window.location.href = "/Home/OfferTakeСard";
+            }
+            else
+            {
+                takeOrReturnCard(false);
+                window.location.href = "/Home/ErrorPage";
+            }
         })
+    }
+
+    function takeOrReturnCard(allow = false) {
+        fetch("http://localhost:8080/confirm/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ operationId: pendingOpId, allow })
+        })
+            .then(r => r.json())
+            .then(data => {
+                console.log("confirm →", data);
+                if (!data || data.error) {
+                    alert("Ошибка при выдаче карт: " + (data && data.error));
+                    return;
+                }
+
+                alert(`OK: ${data.action} (uid=${data.uid || pendingUid || "-"})`);
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Сеть/сервер недоступен");
+            })
+            .finally(() => {
+                // очищаем состояние
+                pendingOpId = null;
+                pendingUid = null;
+            });
+    }
 </script>

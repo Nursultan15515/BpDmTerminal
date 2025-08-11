@@ -72,7 +72,7 @@ namespace BpDmTerminal.Controllers
                     //response.InvitersPhoneNumber = "74-56-98";
                     //response.CabinetNumber = "103";
                     //response.VisitorFullname = "Ләйлім";
-                    //response.NeedPhoto = true;
+                    //response.NeedPhoto = false;
                     //response.CardID = "01010109";
                     return View(response);
                 }
@@ -174,7 +174,8 @@ namespace BpDmTerminal.Controllers
                     if (string.IsNullOrEmpty(terminalName))
                     {
                         LogHelper.AddError("terminalName is null or empty", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId=${passCardVisitorId}");
-                        return RedirectToAction("ErrorPage");
+                        //return RedirectToAction("ErrorPage");
+                        return Json(new { status = false }, JsonRequestBehavior.AllowGet);
                     }
 
                     var response = ServiceHelper.SetVisitorsRFID(passCardVisitorId, rfidNumber, terminalName);
@@ -182,16 +183,19 @@ namespace BpDmTerminal.Controllers
                     if (response == null)
                     {
                         LogHelper.AddError("response is null", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId={passCardVisitorId}; rfidNumber={rfidNumber}");
-                        return RedirectToAction("ErrorPage");
+                        //return RedirectToAction("ErrorPage");
+                        return Json(new { status = false }, JsonRequestBehavior.AllowGet);
                     }
 
                     if (!response.Status)
                     {
                         LogHelper.AddError("response status false", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId={passCardVisitorId}; rfidNumber={rfidNumber}");
-                        return RedirectToAction("ErrorPage");
+                        //return RedirectToAction("ErrorPage");
+                        return Json(new { status = false }, JsonRequestBehavior.AllowGet);
                     }
 
-                    return RedirectToAction("OfferTakeСard");
+                    return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+                    //return RedirectToAction("OfferTakeСard");
                 }
             }
             catch (Exception ex)
