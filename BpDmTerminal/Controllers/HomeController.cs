@@ -243,7 +243,7 @@ namespace BpDmTerminal.Controllers
                 catch (Exception ex)
                 {
                     LogHelper.AddError(ex.ToString(), Request.UserHostAddress, "SendCardEndInformation");
-                    return RedirectToAction("ErrorPage");
+                    return Json("Ok", JsonRequestBehavior.AllowGet);
                 }
             }
         }
