@@ -2,10 +2,7 @@
 using BpDmTerminal.Models;
 using BpDmTerminal.ServiceReference1;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -187,8 +184,9 @@ namespace BpDmTerminal.Controllers
 
                     if (!response.Status)
                     {
-                        LogHelper.AddError("response status false", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId={passCardVisitorId}; rfidNumber={rfidNumber}");
-                        return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+                        LogHelper.AddError($"response status false; {response.Message}", Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId={passCardVisitorId}; rfidNumber={rfidNumber}");
+                        LogHelper.AddPassCardVisitorInfoLog(db, passCardVisitorId, rfidNumber, "Half success SetVisitorsRFID");
+                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
 
                     LogHelper.AddPassCardVisitorInfoLog(db, passCardVisitorId, rfidNumber, "Success SetVisitorsRFID");
@@ -198,7 +196,7 @@ namespace BpDmTerminal.Controllers
             catch (Exception ex)
             {
                 LogHelper.AddError(ex.ToString(), Request.UserHostAddress, $"SetVisitorsRFID; passCardVisitorId={passCardVisitorId}; rfidNumber={rfidNumber}");
-                return RedirectToAction("ErrorPage");
+                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
             }
         }
 
