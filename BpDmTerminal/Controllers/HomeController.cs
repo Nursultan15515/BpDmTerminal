@@ -52,6 +52,8 @@ namespace BpDmTerminal.Controllers
                     }
 
                     var response = ServiceHelper.GetVisitor(searchValue, terminalName); //"Terminal4k1t"
+                    
+                    LogHelper.AddSearchRequestInfo(db, $"{searchValue} - {response.Status.ToString()}", Request.UserHostAddress);
 
                     if (response == null)
                     {
